@@ -52,7 +52,7 @@ class App extends Component {
     this.setState({ content: event.target.value });
   };
 
-  //Good Sample POST
+  //Good Sample POSTs
   //I am happy. I am sad. I feel angry. I'm always right. I know it to be true. it's a fact.
 
 
