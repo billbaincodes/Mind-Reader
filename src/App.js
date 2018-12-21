@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     content: "",
     toneAnalysis: [],
+    convoAnalysis: [],
     loaded: false
   };
 
@@ -40,6 +41,43 @@ class App extends Component {
     }
   };
 
+
+
+
+
+
+  convoPost = (convo) => {
+
+    console.log(convo)
+
+      fetch(
+        "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",
+        {
+          method: "POST",
+          mode: "cors",
+          // credentials: "include",
+          headers: {
+            // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            Authorization:
+              "Basic YXBpa2V5Ojk2ZkM4U1lSdmFfTDFwckpHWE1QRkc2enRkeDZvel9mMExJSWNJMi16eDdO"
+          },
+          body: JSON.stringify(convo)
+        }
+      )
+        .then(response => response.json())
+        .then(json => this.setState({ convoAnalysis: json}));
+    
+  };
+
+
+
+
+
+
+
+
   topTones = () => {
     let unsortedTones = this.state.toneAnalysis.document_tone.tones;
     console.log(
@@ -67,7 +105,7 @@ class App extends Component {
         <h4 className="tagline"> Enter text, reveal the author's true emotions</h4>
         <textarea cols="100" rows="10" onChange={this.contentListener} value={this.state.content} />
         <button onClick={this.tonePost}>Read minds</button>
-        <Conversation />
+        <Conversation convoPost={this.convoPost}/>
         </div>
         <div className="container">
         {this.state.loaded ? (
