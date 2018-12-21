@@ -73,3 +73,20 @@
   animation: App-logo-spin infinite 20s linear;
 
 }
+
+.conversation {
+  margin: 1rem;
+}
+
+.statement {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.i-said {
+  text-align: left;
+}
+
+.they-said {
+  text-align: right;
+}
