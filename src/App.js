@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 import Analysis from "./components/Analysis.js";
-import loadingPic from './assets/mind-reader.jpg'
-import Conversation from "./components/Conversation.js"
-
-
+import loadingPic from "./assets/mind-reader.jpg";
+import Conversation from "./components/Conversation.js";
+import Solo from './components/Solo.js'
 
 class App extends Component {
   state = {
@@ -14,11 +13,11 @@ class App extends Component {
     loaded: false
   };
 
-  tonePost = () => {
-    if (!this.state.content.length) {
+  tonePost = (content) => {
+    if (!content.length) {
       alert("bogus input");
     } else {
-      this.setState({loaded: false})
+      this.setState({ loaded: false });
       fetch(
         "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21",
         {
@@ -33,7 +32,7 @@ class App extends Component {
               "Basic YXBpa2V5Ojk2ZkM4U1lSdmFfTDFwckpHWE1QRkc2enRkeDZvel9mMExJSWNJMi16eDdO"
           },
           body: JSON.stringify({
-            text: this.state.content
+            text: content
           })
         }
       )
@@ -42,42 +41,26 @@ class App extends Component {
     }
   };
 
-
-
-
-
-
-  convoPost = (convo) => {
-
-    console.log(this.state.convoAnalysis)
-
-      fetch(
-        "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",
-        {
-          method: "POST",
-          mode: "cors",
-          // credentials: "include",
-          headers: {
-            // 'Access-Control-Allow-Origin': 'http://localhost:3000',
-            "Content-Type": "application/json",
-            "cache-control": "no-cache",
-            Authorization:
-              "Basic YXBpa2V5Ojk2ZkM4U1lSdmFfTDFwckpHWE1QRkc2enRkeDZvel9mMExJSWNJMi16eDdO"
-          },
-          body: JSON.stringify(convo)
-        }
-      )
-        .then(response => response.json())
-        .then(json => this.setState({ convoAnalysis: json}));
-    
+  convoPost = convo => {
+    fetch(
+      "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",
+      {
+        method: "POST",
+        mode: "cors",
+        // credentials: "include",
+        headers: {
+          // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+          "Content-Type": "application/json",
+          "cache-control": "no-cache",
+          Authorization:
+            "Basic YXBpa2V5Ojk2ZkM4U1lSdmFfTDFwckpHWE1QRkc2enRkeDZvel9mMExJSWNJMi16eDdO"
+        },
+        body: JSON.stringify(convo)
+      }
+    )
+      .then(response => response.json())
+      .then(json => this.setState({ convoAnalysis: json }));
   };
-
-
-
-
-
-
-
 
   topTones = () => {
     let unsortedTones = this.state.toneAnalysis.document_tone.tones;
@@ -88,32 +71,27 @@ class App extends Component {
     );
   };
 
-  contentListener = event => {
-    this.setState({ content: event.target.value });
-  };
-
-  //Good Sample POSTs
-  //I am happy. I am sad. I feel angry. I'm always right. I know it to be true. it's a fact.
-
 
 
   render() {
     return (
       <div className="App">
-      <div className="container">
-        <h2 className="tagline">I'm Not a Damn...</h2>
-        <h1 className="headline">MindReader</h1>
-        <h4 className="tagline"> Enter text, reveal the author's true emotions</h4>
-        <textarea cols="100" rows="10" onChange={this.contentListener} value={this.state.content} />
-        <button onClick={this.tonePost}>Read minds</button>
-        <Conversation convoPost={this.convoPost}/>
+        <div className="container">
+          <h2 className="tagline">I'm Not a Damn...</h2>
+          <h1 className="headline">MindReader</h1>
+
+
+          <Solo tonePost={this.tonePost}/>
+
+
+          <Conversation convoPost={this.convoPost} />
         </div>
         <div className="container">
-        {this.state.loaded ? (
-          <Analysis toneAnalysis={this.state.toneAnalysis} />
-        ) : (
-          <img className="loading App-logo" src={loadingPic} alt="loading"/>
-        )}
+          {this.state.loaded ? (
+            <Analysis toneAnalysis={this.state.toneAnalysis} convoAnalysis={this.state.convoAnalysis}/>
+          ) : (
+            <img className="loading App-logo" src={loadingPic} alt="loading" />
+          )}
         </div>
       </div>
     );
@@ -121,3 +99,6 @@ class App extends Component {
 }
 
 export default App;
+
+//Good Sample POSTs
+//I am happy. I am sad. I feel angry. I'm always right. I know it to be true. it's a fact.
