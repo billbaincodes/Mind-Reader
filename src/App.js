@@ -5,6 +5,7 @@ import loadingPic from './assets/mind-reader.jpg'
 import Conversation from "./components/Conversation.js"
 
 
+
 class App extends Component {
   state = {
     content: "",
@@ -48,7 +49,7 @@ class App extends Component {
 
   convoPost = (convo) => {
 
-    console.log(convo)
+    console.log(this.state.convoAnalysis)
 
       fetch(
         "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",

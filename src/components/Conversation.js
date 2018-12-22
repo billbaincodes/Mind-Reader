@@ -37,13 +37,26 @@ class Conversation extends Component {
   addStatement = event => {
     event.preventDefault();
 
+    let payload = {utterances : this.state.convo.utterances.concat({
+      text: this.state.textInput,
+      user: this.state.currentSpeaker
+    })}
+
     this.setState({
-      utterances: this.state.utterances.concat({
-        text: this.state.textInput,
-        user: this.state.currentSpeaker
-      })
-    });
+      convo : payload
+    })
+    ;
   };
+
+  stateChecker = () => {
+    let demoState = {convo : undefined}
+    let utterances = this.state.convo.utterances
+    demoState.convo = utterances
+
+    console.log(this.state)
+  }
+
+
 
   render() {
     return (
@@ -72,6 +85,9 @@ class Conversation extends Component {
         </form>
         <button onClick={() => this.props.convoPost(this.state.convo)}>
           What did it all mean???
+        </button>
+        <button onClick={this.stateChecker}>
+          State checker
         </button>
       </div>
     );
