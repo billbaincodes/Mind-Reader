@@ -48,19 +48,15 @@ class Conversation extends Component {
     ;
   };
 
-  stateChecker = () => {
-    let demoState = {convo : undefined}
-    let utterances = this.state.convo.utterances
-    demoState.convo = utterances
-
-    console.log(this.state)
-  }
 
 
 
   render() {
     return (
       <div>
+              <h4 className="tagline">
+          Enter a conversation, how did it really go?
+        </h4>
         <div class="conversation">
           {this.state.convo.utterances.map(utterance => {
             let speaker = utterance.user;
@@ -85,9 +81,6 @@ class Conversation extends Component {
         </form>
         <button onClick={() => this.props.convoPost(this.state.convo)}>
           What did it all mean???
-        </button>
-        <button onClick={this.stateChecker}>
-          State checker
         </button>
       </div>
     );

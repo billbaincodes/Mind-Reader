@@ -3,18 +3,24 @@ import "./App.css";
 import Analysis from "./components/Analysis.js";
 import loadingPic from "./assets/mind-reader.jpg";
 import Conversation from "./components/Conversation.js";
-import Solo from './components/Solo.js'
+import Solo from "./components/Solo.js";
 
 class App extends Component {
   state = {
+    mode: "solo",
     content: "",
     toneAnalysis: [],
     convoAnalysis: [],
+    exchangePattern: [],
     loaded: false
   };
 
-  tonePost = (content) => {
-    if (!content.length) {
+  componentDidMount(){
+    document.title = 'Mind Reader'
+  }
+
+  tonePost = content => {
+    if (!content) {
       alert("bogus input");
     } else {
       this.setState({ loaded: false });
@@ -42,6 +48,7 @@ class App extends Component {
   };
 
   convoPost = convo => {
+    this.findExchangePattern(convo.utterances)
     fetch(
       "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",
       {
@@ -60,18 +67,24 @@ class App extends Component {
     )
       .then(response => response.json())
       .then(json => this.setState({ convoAnalysis: json }));
+
   };
 
-  topTones = () => {
-    let unsortedTones = this.state.toneAnalysis.document_tone.tones;
-    console.log(
-      unsortedTones.sort(function(a, b) {
-        return b.score - a.score;
-      })
-    );
+  findExchangePattern = (rawConvo) => {
+    let foundPattern = []
+    rawConvo.forEach(speaker => {
+      foundPattern.push(speaker.user)
+    });
+    this.setState({exchangePattern : foundPattern})
+  }
+
+  soloListener = () => {
+    this.setState({ mode: "solo" });
   };
 
-
+  convoListener = () => {
+    this.setState({ mode: "convo" });
+  };
 
   render() {
     return (
@@ -80,15 +93,24 @@ class App extends Component {
           <h2 className="tagline">I'm Not a Damn...</h2>
           <h1 className="headline">MindReader</h1>
 
+          <div>
+            <button onClick={this.soloListener}>Solo</button>
+            <button onClick={this.convoListener}> Conversation</button>
 
-          <Solo tonePost={this.tonePost}/>
-
-
-          <Conversation convoPost={this.convoPost} />
+            {this.state.mode === "solo" ? (
+              <Solo tonePost={this.tonePost} />
+            ) : (
+              <Conversation convoPost={this.convoPost} />
+            )}
+          </div>
         </div>
         <div className="container">
           {this.state.loaded ? (
-            <Analysis toneAnalysis={this.state.toneAnalysis} convoAnalysis={this.state.convoAnalysis}/>
+            <Analysis
+              toneAnalysis={this.state.toneAnalysis}
+              convoAnalysis={this.state.convoAnalysis}
+              exchangePattern={this.state.exchangePattern}
+            />
           ) : (
             <img className="loading App-logo" src={loadingPic} alt="loading" />
           )}

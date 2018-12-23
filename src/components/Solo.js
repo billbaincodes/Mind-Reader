@@ -20,11 +20,12 @@ class Solo extends Component {
           Enter text, reveal the author's true emotions
         </h4>
         <textarea
-          cols="100"
+          cols="60"
           rows="10"
           onChange={this.contentListener}
           value={this.state.content}
         />
+        <br />
         <button onClick={() => this.props.tonePost(this.state.content)}>Read minds</button>
       </div>
     );

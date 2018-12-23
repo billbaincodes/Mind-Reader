@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   display: flex;
+  align-items: center;
 }
 
 
@@ -90,3 +91,17 @@
 .customer {
   text-align: right;
 }
+
+button {
+  font-family: 'Bangers', cursive;
+  font-size: 1.5rem;
+  color: rgb(158, 158, 158);
+  background: none;
+}
+
+button:hover {
+  color: rgb(255, 0, 255);
+  color: rgb(21, 25, 255)
+}
+
+
