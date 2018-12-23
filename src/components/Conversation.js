@@ -12,7 +12,7 @@ class Conversation extends Component {
             user: "customer"
           },
           {
-            text: "What's it to you",
+            text: "Leave me alone",
             user: "agent"
           },
           {
