@@ -100,8 +100,7 @@ button {
 }
 
 button:hover {
-  color: rgb(255, 0, 255);
-  color: rgb(21, 25, 255)
+  color: rgb(255, 0, 254);
 }
 
 
