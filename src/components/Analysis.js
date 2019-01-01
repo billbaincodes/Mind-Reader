@@ -13,8 +13,8 @@ class Analysis extends Component {
   }
 
   componentDidMount() {
-    // this.toneAnalysis();
-    this.convoAnalysis()
+    this.toneAnalysis();
+    // this.convoAnalysis()
   }
 
   toneAnalysis = () => {

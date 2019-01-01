@@ -4,6 +4,7 @@ import Analysis from "./components/Analysis.js";
 import loadingPic from "./assets/mind-reader.jpg";
 import Conversation from "./components/Conversation.js";
 import Solo from "./components/Solo.js";
+import TempConvo from './components/Placeholder'
 
 class App extends Component {
   state = {
@@ -15,13 +16,13 @@ class App extends Component {
     loaded: false
   };
 
-  componentDidMount(){
-    document.title = 'Mind Reader'
-  }
+  // componentDidMount(){
+  //   document.title = 'Mind Reader'
+  // }
 
   tonePost = content => {
     if (!content) {
-      alert("bogus input");
+      alert("Please enter text.");
     } else {
       this.setState({ loaded: false });
       fetch(
@@ -100,7 +101,8 @@ class App extends Component {
             {this.state.mode === "solo" ? (
               <Solo tonePost={this.tonePost} />
             ) : (
-              <Conversation convoPost={this.convoPost} />
+              <TempConvo />
+              /* <Conversation convoPost={this.convoPost} /> */
             )}
           </div>
         </div>
