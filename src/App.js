@@ -30,9 +30,10 @@ class App extends Component {
         {
           method: "POST",
           mode: "cors",
-          // credentials: "include",
+          credentials: "include",
           headers: {
-            // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Origin': "http:localhost:3000",
             "Content-Type": "application/json",
             "cache-control": "no-cache",
             Authorization:
@@ -55,9 +56,9 @@ class App extends Component {
       {
         method: "POST",
         mode: "cors",
-        // credentials: "include",
+        credentials: "include",
         headers: {
-          // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+          'Access-Control-Allow-Origin': '*',
           "Content-Type": "application/json",
           "cache-control": "no-cache",
           Authorization:
@@ -91,7 +92,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          <h2 className="tagline">I'm Not a Damn...</h2>
+          <h2 className="tagline">I'm Not a Damn . . .</h2>
           <h1 className="headline">MindReader</h1>
 
           <div>
