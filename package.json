@@ -5,6 +5,7 @@
   "dependencies": {
     "chart.js": "^2.7.3",
     "dotenv": "^6.2.0",
+    "dotenv-expand": "^5.1.0",
     "raphael": "^2.2.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

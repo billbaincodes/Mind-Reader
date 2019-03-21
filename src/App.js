@@ -5,6 +5,8 @@ import loadingPic from "./assets/mind-reader.jpg";
 import Conversation from "./components/Conversation.js";
 import Solo from "./components/Solo.js";
 import TempConvo from './components/Placeholder'
+import { Placeholder } from "semantic-ui-react";
+let dotenv = require('dotenv').config()
 
 class App extends Component {
   state = {
@@ -15,10 +17,6 @@ class App extends Component {
     exchangePattern: [],
     loaded: false
   };
-
-  // componentDidMount(){
-  //   document.title = 'Mind Reader'
-  // }
 
   tonePost = content => {
     if (!content) {
@@ -32,11 +30,11 @@ class App extends Component {
           mode: "cors",
           headers: {
             'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': "http:localhost:3000, http://mind-reader.surge.sh",
+            'Access-Control-Allow-Origin': "http://localhost:3000, mind-reader.surge.sh",
             "Content-Type": "application/json",
             "cache-control": "no-cache",
             Authorization:
-              "Basic YXBpa2V5Ojk2ZkM4U1lSdmFfTDFwckpHWE1QRkc2enRkeDZvel9mMExJSWNJMi16eDdO"
+              "Basic " + process.env.REACT_APP_IBM_SECRET
           },
           body: JSON.stringify({
             text: content
@@ -101,8 +99,8 @@ class App extends Component {
             {this.state.mode === "solo" ? 
               <Solo tonePost={this.tonePost} />
             :
-
-              <Conversation  convoPost={this.convoPost}/> 
+              <Placeholder />
+              /* <Conversation  convoPost={this.convoPost}/>  */
             }
             
           </div>
