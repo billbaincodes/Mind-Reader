@@ -30,10 +30,9 @@ class App extends Component {
         {
           method: "POST",
           mode: "cors",
-          credentials: "include",
           headers: {
             'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': "http:localhost:3000",
+            'Access-Control-Allow-Origin': "http:localhost:3000, http://mind-reader.surge.sh",
             "Content-Type": "application/json",
             "cache-control": "no-cache",
             Authorization:
@@ -99,12 +98,13 @@ class App extends Component {
             <button onClick={this.soloListener}>Solo</button>
             <button onClick={this.convoListener}> Conversation</button>
 
-            {this.state.mode === "solo" ? (
+            {this.state.mode === "solo" ? 
               <Solo tonePost={this.tonePost} />
-            ) : (
-              <TempConvo />
-              /* <Conversation convoPost={this.convoPost} /> */
-            )}
+            :
+
+              <Conversation  convoPost={this.convoPost}/> 
+            }
+            
           </div>
         </div>
         <div className="container">
