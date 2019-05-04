@@ -19,22 +19,17 @@ class App extends Component {
   };
 
   tonePost = content => {
+
     if (!content) {
       alert("Please enter text.");
     } else {
       this.setState({ loaded: false });
       fetch(
-        "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21",
+        "http://localhost:3333/document",
         {
           method: "POST",
-          mode: "cors",
           headers: {
-            'Access-Control-Allow-Credentials': true,
-            'Access-Control-Allow-Origin': "http://localhost:3000, mind-reader.surge.sh",
-            "Content-Type": "application/json",
-            "cache-control": "no-cache",
-            Authorization:
-              "Basic " + process.env.REACT_APP_IBM_SECRET
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             text: content
@@ -42,8 +37,9 @@ class App extends Component {
         }
       )
         .then(response => response.json())
-        .then(json => this.setState({ toneAnalysis: json, loaded: true }));
+        .then(json => this.setState({ toneAnalysis: JSON.parse(json), loaded: true }));
     }
+
   };
 
   convoPost = convo => {
