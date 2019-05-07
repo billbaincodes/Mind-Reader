@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Component = () => {
+const Placeholder = () => {
   return(
     <div>
       <h4 className="tagline">Coming Soon!</h4>
@@ -8,4 +8,4 @@ const Component = () => {
   )
 }
 
-export default Component
+export default Placeholder

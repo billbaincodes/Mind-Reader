@@ -14,7 +14,7 @@ class Analysis extends Component {
 
   componentDidMount() {
     this.toneAnalysis();
-    // this.convoAnalysis()
+    // this.convoAnalysis();
   }
 
   toneAnalysis = () => {
@@ -101,14 +101,12 @@ class Analysis extends Component {
 
   render() {
     return (
-
         <div className="graph">
           <canvas id="myChart" width="500" height="500" />
         </div>
-
-
     );
   }
+  
 }
 
 export default Analysis;

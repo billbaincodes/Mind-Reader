@@ -1,26 +1,12 @@
 .App {
+  padding: 1rem;
   text-align: center;
   display: flex;
-  align-items: center;
-}
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 95vh;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -38,15 +24,14 @@
     color: rgb(255, 38, 255);
     transform: skewX(-10deg);
   }
-}
-
+} */
 
 .graph {
   width: 50%;
 }
 
 .headline {
-  font-size: 8rem;
+  font-size: 20vw;
   font-family: 'Bangers', cursive;
   animation: skew 3s infinite;
   animation-direction: alternate;
@@ -54,25 +39,25 @@
 }
 
 .tagline {
-  font-size: 2rem;
+  font-size: 5.4vw;
   font-family: 'Bangers', cursive;
   color: rgb(255, 40, 255);
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
 }
 
 .container {
   display: flex;  
   flex-direction: column;
-  margin: 0 auto;
-  width: 75vw;
   align-items: center;
+  justify-content: space-around;
+  height: 100%;
 }
 
 .loading {
-  margin-top: 15%;
-  width: 75%;
+  width: 60vw;
   border-radius: 50%;
   animation: App-logo-spin infinite 20s linear;
-
 }
 
 .conversation {
@@ -103,4 +88,7 @@ button:hover {
   color: rgb(255, 0, 254);
 }
 
-
+textarea {
+  width: 95vw;
+  border: 1px solid grey;
+}

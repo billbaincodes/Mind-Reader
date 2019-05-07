@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
 import Analysis from "./components/Analysis.js";
-import loadingPic from "./assets/mind-reader.jpg";
 import Conversation from "./components/Conversation.js";
 import Solo from "./components/Solo.js";
-import TempConvo from './components/Placeholder'
-import { Placeholder } from "semantic-ui-react";
-let dotenv = require('dotenv').config()
+import Placeholder from "./components/Placeholder";
+// import "./App.css";
+import "./style.sass";
 
 class App extends Component {
   state = {
@@ -19,31 +17,29 @@ class App extends Component {
   };
 
   tonePost = content => {
-
     if (!content) {
       alert("Please enter text.");
     } else {
       this.setState({ loaded: false });
-      fetch(
-        "http://localhost:3333/document",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            text: content
-          })
-        }
-      )
+      fetch("https://mind-reader-server.herokuapp.com/document", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: content
+        })
+      })
         .then(response => response.json())
-        .then(json => this.setState({ toneAnalysis: JSON.parse(json), loaded: true }));
+        .then(json =>
+          this.setState({ toneAnalysis: JSON.parse(json), loaded: true })
+        );
     }
-
   };
 
   convoPost = convo => {
-    this.findExchangePattern(convo.utterances)
+    this.findExchangePattern(convo.utterances);
     fetch(
       "https://gateway.watsonplatform.net/tone-analyzer/api//v3/tone_chat?version=2017-09-21",
       {
@@ -51,7 +47,7 @@ class App extends Component {
         mode: "cors",
         credentials: "include",
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
           "cache-control": "no-cache",
           Authorization:
@@ -62,16 +58,15 @@ class App extends Component {
     )
       .then(response => response.json())
       .then(json => this.setState({ convoAnalysis: json }));
-
   };
 
-  findExchangePattern = (rawConvo) => {
-    let foundPattern = []
+  findExchangePattern = rawConvo => {
+    let foundPattern = [];
     rawConvo.forEach(speaker => {
-      foundPattern.push(speaker.user)
+      foundPattern.push(speaker.user);
     });
-    this.setState({exchangePattern : foundPattern})
-  }
+    this.setState({ exchangePattern: foundPattern });
+  };
 
   soloListener = () => {
     this.setState({ mode: "solo" });
@@ -84,34 +79,44 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="container">
+
+        <div className="header">
           <h2 className="tagline">I'm Not a Damn . . .</h2>
           <h1 className="headline">MindReader</h1>
-
           <div>
             <button onClick={this.soloListener}>Solo</button>
             <button onClick={this.convoListener}> Conversation</button>
-
-            {this.state.mode === "solo" ? 
-              <Solo tonePost={this.tonePost} />
-            :
-              <Placeholder />
-              /* <Conversation  convoPost={this.convoPost}/>  */
-            }
-            
           </div>
         </div>
-        <div className="container">
-          {this.state.loaded ? (
-            <Analysis
-              toneAnalysis={this.state.toneAnalysis}
-              convoAnalysis={this.state.convoAnalysis}
-              exchangePattern={this.state.exchangePattern}
-            />
-          ) : (
-            <img className="loading App-logo" src={loadingPic} alt="loading" />
-          )}
+        
+        <div className="input">
+              {this.state.mode === "solo" ? (
+                <Solo tonePost={this.tonePost} />
+              ) : (
+                <Placeholder />
+              )
+              /* <Conversation convoPost={this.convoPost} /> */
+              }
+          </div>
+
+        
+        <div className="analysis">
+        {this.state.loaded ? (
+          <Analysis
+            toneAnalysis={this.state.toneAnalysis}
+            convoAnalysis={this.state.convoAnalysis}
+            exchangePattern={this.state.exchangePattern}
+          />
+        ) : (
+          <img
+            className="loading App-logo"
+            src="https://i.imgur.com/3Pci6WH.png"
+            alt="loading"
+          />
+        )}
+
         </div>
+
       </div>
     );
   }
