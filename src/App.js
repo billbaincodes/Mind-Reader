@@ -83,10 +83,10 @@ class App extends Component {
         <div className="header">
           <h2 className="tagline">I'm Not a Damn . . .</h2>
           <h1 className="headline">MindReader</h1>
-          <div>
+          {/* <div>
             <button onClick={this.soloListener}>Solo</button>
             <button onClick={this.convoListener}> Conversation</button>
-          </div>
+          </div> */}
         </div>
         
         <div className="input">

@@ -1,12 +1,30 @@
 
 $pink: rgb(255, 40, 255);
+$break-small: 600px;
   
 .App 
   display: grid
-  grid-template-columns: 1, 2, 2
-  grid-template-rows: 1
-  height: 100vh
+  grid-template-areas: "header" "input" "analysis"
+  height: 98vh
+  box-sizing: border-box
   text-align: center
+  @media screen and (min-width: $break-small) 
+    grid-template-areas: "header analysis" "input analysis"
+    background-color: pink
+    align-content: center
+    margin: 0
+
+
+.header 
+  grid-area: header
+  
+.input
+  grid-area: input
+
+.analysis
+  grid-area: analysis
+  @media screen and (min-width: $break-small) 
+    width: 60vw
 
 // @keyframes App-logo-spin
 //   from 
@@ -26,6 +44,9 @@ $pink: rgb(255, 40, 255);
 
 .graph 
   width: 50%
+  @media screen and (min-width: $break-small) 
+    max-width: 100%
+    margin: 0 auto
 
 .headline 
   font-size: 20vw
@@ -33,6 +54,8 @@ $pink: rgb(255, 40, 255);
   animation: skew 3s infinite
   animation-direction: alternate
   margin: 0
+  @media screen and (min-width: $break-small) 
+    font-size: 10vw
 
 .tagline 
   font-size: 5.4vw
@@ -40,6 +63,8 @@ $pink: rgb(255, 40, 255);
   color: $pink
   margin-top: 0.6rem
   margin-bottom: 0.6rem
+  @media screen and (min-width: $break-small) 
+    font-size: 3vw
 
 .container 
   display: flex
@@ -49,7 +74,7 @@ $pink: rgb(255, 40, 255);
   height: 100%
 
 .loading 
-  width: 60vw
+  max-width: 75%
   border-radius: 50%
   animation: App-logo-spin infinite 20s linear
 
@@ -76,9 +101,5 @@ button:hover
   color: rgb(255, 0, 254)
 
 textarea
-  width: 95vw
   border: 1px solid grey
   font-family: Arial, Helvetica, sans-serif
-
-.input
-  height: 34vh
