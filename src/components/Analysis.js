@@ -7,6 +7,7 @@ class Analysis extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      screenSize: "small",
       mode: "solo",
       exchangePattern: []
     };
@@ -14,8 +15,41 @@ class Analysis extends Component {
 
   componentDidMount() {
     this.toneAnalysis();
+    this.findViewPortSize();
     // this.convoAnalysis();
   }
+
+  findViewPortSize = () => {
+    var viewportwidth;
+    var viewportheight;
+
+    // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+
+    if (typeof window.innerWidth != "undefined") {
+      viewportwidth = window.innerWidth;
+      viewportheight = window.innerHeight;
+    }
+
+    // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+    else if (
+      typeof document.documentElement != "undefined" &&
+      typeof document.documentElement.clientWidth != "undefined" &&
+      document.documentElement.clientWidth != 0
+    ) {
+      viewportwidth = document.documentElement.clientWidth;
+      viewportheight = document.documentElement.clientHeight;
+    }
+
+    // older versions of IE
+    else {
+      viewportwidth = document.getElementsByTagName("body")[0].clientWidth;
+      viewportheight = document.getElementsByTagName("body")[0].clientHeight;
+    }
+    console.log(viewportwidth);
+    if (viewportwidth > 600) {
+      this.setState({ screenSize: "large" })
+    }
+  };
 
   toneAnalysis = () => {
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -51,7 +85,17 @@ class Analysis extends Component {
           }
         ]
       },
-      options: {}
+      options: {
+        tooltips: {
+          titleFontSize: this.state.screenSize === "small" ? 12 : 18,
+          bodyFontSize: this.state.screenSize === "small" ? 12 : 18
+        },
+        legend: {
+          labels: {
+            fontSize: this.state.screenSize === "small" ? 12 : 18
+          }
+        }
+      }
     });
   };
 
@@ -60,33 +104,29 @@ class Analysis extends Component {
     var myChart = new Chart(ctx, {
       type: "radar",
       data: {
-        labels: ['Excited', 'Frustrated','Rude', 'Polite', 'Sad', 'Sympathetic'],
+        labels: [
+          "Excited",
+          "Frustrated",
+          "Rude",
+          "Polite",
+          "Sad",
+          "Sympathetic"
+        ],
         datasets: [
           {
             label: "Your tone",
             data: this.props.toneAnalysis.document_tone.tones.map(
               tone => tone.score
             ),
-            backgroundColor: [
-              "rgba(255, 0, 255, 0.2)"
-
-            ],
-            borderColor: [
-              "rgba(255, 0, 255, 1)"
-
-            ],
+            backgroundColor: ["rgba(255, 0, 255, 0.2)"],
+            borderColor: ["rgba(255, 0, 255, 1)"],
             borderWidth: 1
           },
           {
             label: "their tone",
-            data: [.6, .9, .8, .9, .3],
-            backgroundColor: [
-              "rgba(21, 25, 255, 0.2)"
-            ],
-            borderColor: [
-              "rgba(21, 25, 255, 1)"
-
-            ],
+            data: [0.6, 0.9, 0.8, 0.9, 0.3],
+            backgroundColor: ["rgba(21, 25, 255, 0.2)"],
+            borderColor: ["rgba(21, 25, 255, 1)"],
             borderWidth: 1
           }
         ]
@@ -101,12 +141,11 @@ class Analysis extends Component {
 
   render() {
     return (
-        <div className="graph">
-          <canvas id="myChart" width="500" height="500" />
-        </div>
+      <div className="graph">
+        <canvas id="myChart" width="500" height="500" />
+      </div>
     );
   }
-  
 }
 
 export default Analysis;

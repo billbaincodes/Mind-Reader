@@ -41,6 +41,10 @@ class Practice extends Component {
               }
             }
           ]
+        },
+        tooltips: {
+          titleFontSize: 18,
+          bodyFontSize: 30
         }
       }
     });
