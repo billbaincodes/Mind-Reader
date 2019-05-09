@@ -32,8 +32,13 @@ class App extends Component {
         })
       })
         .then(response => response.json())
-        .then(json =>
-          this.setState({ toneAnalysis: JSON.parse(json), loaded: true })
+        .then(json => {
+          if (!JSON.parse(json).document_tone.tones.length) {
+            alert("The Mind Reader is struggling. Please enter more data.")
+          } else {
+            this.setState({ toneAnalysis: JSON.parse(json), loaded: true })
+          }
+        }
         );
     }
   };

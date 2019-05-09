@@ -47,7 +47,7 @@ class Analysis extends Component {
     }
     console.log(viewportwidth);
     if (viewportwidth > 600) {
-      this.setState({ screenSize: "large" })
+      this.setState({ screenSize: "large" });
     }
   };
 
@@ -136,15 +136,23 @@ class Analysis extends Component {
   };
 
   logger = () => {
-    console.log(this.props.convoAnalysis);
+    if (this.props.toneAnalysis.document_tone.tones.length) {
+      return (
+        <div className="graph">
+          <canvas id="myChart" width="500" height="500" />
+        </div>
+      );
+    } else {
+      return (
+        <div className="graph">
+          <canvas id="myChart" width="500" height="500" />
+        </div>
+      );
+    }
   };
 
   render() {
-    return (
-      <div className="graph">
-        <canvas id="myChart" width="500" height="500" />
-      </div>
-    );
+    return this.logger();
   }
 }
 
