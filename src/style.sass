@@ -1,7 +1,9 @@
 
+//Global Vars
 $pink: rgb(255, 40, 255);
 $break-small: 600px;
-  
+
+//Classes
 .App 
   display: grid
   height: 100vh
@@ -9,7 +11,7 @@ $break-small: 600px;
   text-align: center
   align-content: center
   margin: 0
-  @media screen and (min-width: $break-small) 
+  @media screen and (min-width: $break-small)
     grid-template-areas: "header analysis" "input analysis"
 
 .header 
@@ -22,7 +24,6 @@ $break-small: 600px;
 .input > div 
   padding: 0rem 1rem 1rem 1rem
 
-
 .analysis
   display: flex
   align-items: center
@@ -31,26 +32,6 @@ $break-small: 600px;
   @media screen and (min-width: $break-small) 
     margin-bottom: 0
     width: 50vw
-
-
-
-@keyframes App-logo-spin
-  from 
-    transform: rotate(0deg)
-  
-  to
-    transform: rotate(360deg)
-
-@keyframes skew
-  0% 
-    color: rgb(139, 139, 139)
-    transform: skewX(20deg)
-  
-  100% 
-    color: rgb(255, 38, 255)
-    transform: skewX(-10deg)
-
-
 
 .headline 
   font-size: 20vw
@@ -73,8 +54,6 @@ $break-small: 600px;
   flex-direction: column
   justify-content: space-around
   height: 100%
-
-
 
 .graph 
   max-width: 80vw
@@ -101,6 +80,7 @@ $break-small: 600px;
 .customer 
   text-align: right
 
+//Elements
 button 
   font-family: 'Bangers', cursive
   font-size: 1.5rem
@@ -109,7 +89,6 @@ button
   @media screen and (min-width: $break-small) 
     margin-top: 1rem
     font-size: 1.8rem
-
 
 button:hover
   color: rgb(255, 0, 254)
@@ -122,3 +101,20 @@ textarea
   @media screen and (min-width: $break-small) 
     font-size: 1.2rem
     height: 8rem
+
+//Animations
+@keyframes App-logo-spin
+  from 
+    transform: rotate(0deg)
+  
+  to
+    transform: rotate(360deg)
+
+@keyframes skew
+  0% 
+    color: rgb(139, 139, 139)
+    transform: skewX(20deg)
+  
+  100% 
+    color: rgb(255, 38, 255)
+    transform: skewX(-10deg)
