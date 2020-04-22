@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Analysis from "./components/Analysis.js";
-import Conversation from "./components/Conversation.js";
 import Solo from "./components/Solo.js";
 import Placeholder from "./components/Placeholder";
-// import "./App.css";
 import "./style.sass";
 
 class App extends Component {
